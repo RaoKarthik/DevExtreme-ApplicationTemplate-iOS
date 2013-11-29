@@ -20,6 +20,8 @@
 #import "CDVSplashScreen.h"
 
 #define kSplashScreenDurationDefault 0.25f
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 
 @implementation CDVSplashScreen
 
@@ -170,7 +172,9 @@
     // There's a special case when the image is the size of the screen.
     if (CGSizeEqualToSize(screenSize, imgBounds.size)) {
         CGRect statusFrame = [self.viewController.view convertRect:[UIApplication sharedApplication].statusBarFrame fromView:nil];
-        imgBounds.origin.y -= statusFrame.size.height;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            imgBounds.origin.y -= statusFrame.size.height;
+        }
     } else {
         CGRect viewBounds = self.viewController.view.bounds;
         CGFloat imgAspect = imgBounds.size.width / imgBounds.size.height;
