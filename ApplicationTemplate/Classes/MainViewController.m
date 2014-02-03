@@ -68,22 +68,6 @@
     // View defaults to full size.  If you want to customize the view's size, or its subviews (e.g. webView),
     // you can do so here.
 
-    if (IsAtLeastiOSVersion(@"7.0")) {
-
-        CGRect screenBounds = [UIScreen mainScreen].bounds;
-        
-        CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-
-        if(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)){
-            statusBarFrame = CGRectMake(0, 0, statusBarFrame.size.height, statusBarFrame.size.width);
-        }
-        
-        screenBounds.origin.y = statusBarFrame.size.height;
-        screenBounds.size.height -= statusBarFrame.size.height;
-        
-        self.webView.frame = screenBounds;
-    }
-
     [super viewWillAppear:animated];
 }
 
